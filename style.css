@@ -1,9 +1,12 @@
-html, body {
+html,
+body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     height: 100%;
 }
+
 body {
+    display: flex;
     background-image: url("bg.jpg");
     backdrop-filter: blur(5px);
     background-size: auto;
@@ -11,48 +14,75 @@ body {
     margin: 0;
     padding-top: 15px;
     overflow: hidden;
+    flex-flow: column;
+}
+
+@media screen and (max-width: 992px) {
+    body {
+        flex-flow: column;
+    }
 }
 
 .headline {
-    color:rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     font-size: larger;
 }
+
 .file-upload-container {
     display: flex;
-    flex-direction: column;
+    flex-flow: column wrap;
     align-items: center;
     padding: 2em;
     width: 30%;
     background-color: #1313136b;
     margin: auto;
     border-radius: 15px;
-    margin-bottom: 1%;
+    /*! margin-bottom: 1%; */
 }
+
 .table-flash-container {
     display: flex;
-    flex-direction: column;
+    flex-flow: column;
     align-items: center;
     padding: 2em;
     width: 30%;
     background-color: #1313136b;
     margin: auto;
     border-radius: 15px;
-    margin-bottom: 1%;
-    margin-top: 1%;
+    /*! margin-bottom: 1%; */
+    /*! margin-top: 1%; */
     overflow: auto;
-    padding-top: 0;
 }
+
+@media screen and (max-width: 992px) {
+
+
+    .file-upload-container {
+
+        width: 80%;
+
+    }
+
+    .table-flash-container {
+
+        width: 80%;
+
+    }
+
+}
+
+
 form {
-    width: 100%;
-    max-width: 500px;
-    margin: 2em auto;
-    text-align: center;
-    margin-bottom: 0;
-}
-.form-group {
-    position: relative;
     margin: 2em 0;
 }
+
+.form-group {
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    text-align: center;
+}
+
 #file {
     opacity: 0;
     position: absolute;
@@ -63,6 +93,7 @@ form {
     width: 0%;
     height: 0%;
 }
+
 label[for="file"] {
     display: inline-block;
     padding: 1em 2em;
@@ -70,7 +101,10 @@ label[for="file"] {
     color: #333;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 0.5em;
+    transition: all 0.2s ease;
 }
+
 input[type="submit"] .progress {
     margin: 2em 0;
     padding: 1em 2em;
@@ -81,12 +115,127 @@ input[type="submit"] .progress {
     cursor: pointer;
 }
 
+.progress-btn {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    display: inline-block;
+    border-radius: 5px;
+    background: #f44336;
+    font-family: "RobotoDraft", "Roboto", sans-serif;
+    color: #fff;
+    font-weight: normal;
+    font-size: 20px;
+    transition: all 0.4s ease;
+}
+
+.progress-btn:not(.active) {
+    cursor: pointer;
+}
+
+.progress-btn .btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    line-height: 50px;
+    text-align: center;
+    z-index: 10;
+    opacity: 1;
+}
+
 .progress-btn .progress {
-	width: 0%;
-	z-index: 5;
-	background: #D32F2F;
-	opacity: 0.5;
-	transition: all 0.3s ease;
+    width: 0%;
+    z-index: 5;
+    background: #D32F2F;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.progress-btn.active .progress {
+    opacity: 1;
+    animation: progress-anim 10s ease 0s;
+}
+
+.progress-btn[data-progress-style='fill-back'] .progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 5px;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1, 95;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -25;
+    }
+
+    100% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -93;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes progress-anim {
+    0% {
+        width: 0%;
+    }
+
+    5% {
+        width: 0%;
+    }
+
+    10% {
+        width: 15%;
+    }
+
+    30% {
+        width: 40%;
+    }
+
+    50% {
+        width: 55%;
+    }
+
+    80% {
+        width: 100%;
+    }
+
+    95% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
+    }
+}
+
+@keyframes progress-indefinite-anim {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 0%;
+    }
 }
 
 table.responsive {
@@ -99,22 +248,27 @@ table.responsive {
     width: 100%;
     height: 100%;
 }
-table.responsive td, table.responsive th {
+
+table.responsive td,
+table.responsive th {
     border: 1px solid rgba(36, 36, 36, 0.75);
     padding: 12px 12px;
     border-spacing: 0;
     border-bottom-width: thick;
-    color:#fff;
+    color: #fff;
 }
+
 table.responsive tbody td {
     font-size: 13px;
     font-weight: bold;
     color: #FFFFFF;
     border-bottom-width: thin;
 }
+
 table.responsive tr:nth-child(even) {
     background-color: rgba(72, 72, 72, 0.8);
 }
+
 table.responsive tr:nth-child(odd) {
     background-color: rgba(82, 84, 81, 0.8);
 }
@@ -123,6 +277,7 @@ table.responsive thead {
     background-color: rgba(46, 47, 45, 0.8);
     border-bottom: 12px solid rgba(49, 49, 49, 0.8);
 }
+
 table.responsive thead th {
     font-size: 14px;
     font-weight: bold;
@@ -130,22 +285,27 @@ table.responsive thead th {
     text-align: center;
     border-left: 2px solid rgba(59, 59, 59, 0.8);
 }
+
 table.responsive thead th:first-child {
     border-color: none;
 }
+
 table.responsive tfoot td {
     font-size: 13px;
 }
+
 table.responsive tfoot .links {
     text-align: right;
 }
-table.responsive tfoot .links a{
+
+table.responsive tfoot .links a {
     display: inline-block;
     background: rgba(255, 255, 255, 0.8);
     color: #686868;
     padding: 2px 8px;
     border-radius: 5px;
 }
+
 .button {
     border: none;
     padding: 15px 32px;
@@ -161,9 +321,11 @@ table.responsive tfoot .links a{
     color: #333;
     border-radius: 5px;
 
+    transition: all 0.2s ease;
 }
 
-button[disabled=disabled], button:disabled {
+button[disabled=disabled],
+button:disabled {
     border: none;
     color: rgba(83, 83, 83, 0.5);
     padding: 15px 32px;
@@ -184,17 +346,17 @@ button[disabled=disabled], button:disabled {
     background-color: rgba(128, 128, 128, 0.3);
     padding: 20px;
     margin-bottom: 20px;
-  }
+}
 
-  .table-section {
+.table-section {
     background-color: rgba(128, 128, 128, 0.3);
     padding: 20px;
-  }
+}
 
-  #table-flash-container,
+#table-flash-container,
 #table-flash-container table input[type=checkbox] {
-  opacity: 1;
-  pointer-events: auto;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 
@@ -204,40 +366,66 @@ button[disabled=disabled], button:disabled {
     margin-top: 20px;
     opacity: 0.5;
     pointer-events: none;
-  }
-  
-  #table-flash-container input[type=checkbox] {
+}
+
+#table-flash-container input[type=checkbox] {
     opacity: 0.5;
     pointer-events: none;
-  }
-  
-  #table-flash-container #flash-button {
+}
+
+#table-flash-container #flash-button {
     opacity: 0.5;
     pointer-events: none;
-  }
-  
-  #table-flash-container.enabled {
+}
+
+#table-flash-container.enabled {
     opacity: 1;
     pointer-events: auto;
-  }
-  
-  #table-flash-container.enabled input[type=checkbox] {
+}
+
+#table-flash-container.enabled input[type=checkbox] {
     opacity: 1;
     pointer-events: auto;
-  }
-  
-  #table-flash-container.enabled #flash-button {
+}
+
+#table-flash-container.enabled #flash-button {
     opacity: 1;
     pointer-events: auto;
-  }
-  
-  #file-upload-container {
+}
+
+#file-upload-container {
     background-color: #f7f7f7;
     padding: 20px;
-  }
-  
-  #selected-file-name {
+}
+
+#selected-file-name {
     margin-top: 10px;
-    color:#ddd;
+    color: #ddd;
     font-size: large;
-  }
+    border: 1px solid grey;
+    border-style: dashed;
+    padding: 1.5em;
+    transition: all 0.5s ease
+}
+
+#selected-file-name:hover {
+    border-color: #508C50;
+    color: #91df91;
+}
+
+.form-group label:hover {
+    filter: invert(1);
+}
+
+.button:hover {
+    background-color: #508C50;
+}
+
+.button.btnFlash:hover:disabled {
+    color: #ddd;
+    background: #cc4646;
+}
+
+.button.btnFlash:hover:enabled {
+    background: green;
+}
