@@ -167,33 +167,6 @@ input[type="submit"] .progress {
     border-radius: 5px;
 }
 
-@keyframes dash {
-    0% {
-        stroke-dasharray: 1, 95;
-        stroke-dashoffset: 0;
-    }
-
-    50% {
-        stroke-dasharray: 85, 95;
-        stroke-dashoffset: -25;
-    }
-
-    100% {
-        stroke-dasharray: 85, 95;
-        stroke-dashoffset: -93;
-    }
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 @keyframes progress-anim {
     0% {
         width: 0%;
@@ -225,16 +198,6 @@ input[type="submit"] .progress {
 
     100% {
         width: 0%;
-    }
-}
-
-@keyframes progress-indefinite-anim {
-    0% {
-        background-position: 0% 0%;
-    }
-
-    100% {
-        background-position: 100% 0%;
     }
 }
 

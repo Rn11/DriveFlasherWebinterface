@@ -55,7 +55,7 @@
     </table>
     <button class="button btnFlash" type="button" disabled>Flash drive!</button>
   </div>
-
+  <script src="./js/libs/jquery-2.1.3.min.js"></script>
   <script>
     // file upload status handling
     function uploadFile() {
@@ -73,7 +73,17 @@
           xhr.onreadystatechange = function () {
             if (xhr.readyState === XMLHttpRequest.DONE) {
               if (xhr.status === 200) {
-                console.log("File uploaded successfully!");
+                
+                // Trigger upload button upload progress animation
+                var progressBtn = $(".progress-btn");
+                if (!progressBtn.hasClass("active")) {
+                  progressBtn.addClass("active");
+                  setTimeout(function () {
+                    progressBtn.removeClass("active");
+                  }, 10000);
+                }
+
+                console.log("Starting file upload!");
                 document.querySelector(".table-flash-container table").removeAttribute("disabled");
                 const checkboxes = document.querySelectorAll("input[type='checkbox']");
                 checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
@@ -143,18 +153,18 @@
       });
     });
   </script>
-  <script src="./js/libs/jquery-2.1.3.min.js"></script>
+
   <script>
     $(document).ready(function () {
       $(".progress-btn").on("click", function () {
         var progressBtn = $(this);
-
-        if (!progressBtn.hasClass("active")) {
-          progressBtn.addClass("active");
-          setTimeout(function () {
-            progressBtn.removeClass("active");
-          }, 10000);
-        }
+        /*
+                if (!progressBtn.hasClass("active")) {
+                  progressBtn.addClass("active");
+                  setTimeout(function () {
+                    progressBtn.removeClass("active");
+                  }, 10000);
+                }*/
       })
     });
 
@@ -177,7 +187,7 @@
         });
     });
 
-    // Submit button with upload progress
+    // Submit button 
     $(".progress-btn").click(function () {
       $(".progress-btn").submit();
       event.preventDefault();
