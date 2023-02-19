@@ -409,7 +409,13 @@ button:disabled {
     transition: all 0.5s ease
 }
 
-#selected-file-name:hover {
+#selected-file-name:hover  {
+    border-color: #508C50;
+    color: #91df91;
+}
+
+/* for dragover effect with file */
+#selected-file-name.is-dragover {
     border-color: #508C50;
     color: #91df91;
 }
