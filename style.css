@@ -402,6 +402,7 @@ button:disabled {
     margin-top: 10px;
     color: #ddd;
     font-size: large;
+    text-align: center;
     border: 1px solid grey;
     border-style: dashed;
     padding: 1.5em;

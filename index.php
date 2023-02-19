@@ -15,14 +15,16 @@
     <div id="selected-file-name">No file selected</div>
     <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
       <div class="form-group">
-        <input type="file" name="file" id="file" onchange="updateSelectedFile(this)" accept=".iso">
+        <input type="file" name="file" id="file" onchange="updateSelectedFile(this)"
+          accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
         <div><label for="file">Choose a file</label></div>
 
 
-    <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
-      <div class="btn">Upload</div>
-      <div class="progress"></div>
-    </div>
+
+        <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
+          <div class="btn">Upload</div>
+          <div class="progress"></div>
+        </div>
     </form>
   </div>
 
@@ -55,27 +57,60 @@
   </div>
 
   <script>
+    // file upload status handling
     function uploadFile() {
       event.preventDefault();
+      var allowed_extensions = ['iso', 'img', 'zip', 'usb', 'bz2', 'bzip2', 'gz', 'vhd', 'gz'];
       var file = document.getElementById("file").files[0];
-      var formData = new FormData();
-      formData.append("file", file);
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "upload.php", true);
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            console.log("File uploaded successfully!");
-            document.querySelector(".table-flash-container table").removeAttribute("disabled");
-            const checkboxes = document.querySelectorAll("input[type='checkbox']");
-            checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
-            document.querySelector(".btnFlash").removeAttribute("disabled");
-          } else {
-            console.log("File upload failed, status code: " + xhr.status);
-          }
+      if (file) {
+        // filter for invalid file extension to prevent
+        var extension = file.name.split('.').pop();
+        if (allowed_extensions.indexOf(extension) !== -1) {
+          var formData = new FormData();
+          formData.append("file", file);
+          var xhr = new XMLHttpRequest();
+          xhr.open("POST", "upload.php", true);
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                console.log("File uploaded successfully!");
+                document.querySelector(".table-flash-container table").removeAttribute("disabled");
+                const checkboxes = document.querySelectorAll("input[type='checkbox']");
+                checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
+                document.querySelector(".btnFlash").removeAttribute("disabled");
+              } else if (xhr.status === 400) {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "Bad request";
+              }
+              else if (xhr.status === 409) {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "File already exists on the server";
+              }
+              else if (xhr.status === 413) {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "File size too large. Maximum file size is 20 GB";
+              }
+              else if (xhr.status === 422) {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "Invalid file type<br> Only "
+                  + allowed_extensions.join(", ") + " files are allowed";
+              }
+              else if (xhr.status === 500) {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "File upload failed";
+              }
+              else {
+                console.log("File upload failed, status code: " + xhr.status);
+                document.getElementById("selected-file-name").innerHTML = "General error";
+              }
+            }
+          };
+          xhr.send(formData);
+        } else {
+          document.getElementById("selected-file-name").innerHTML = "Invalid file type.<br> Only "
+            + allowed_extensions.join(", ") + " files are allowed.";
         }
-      };
-      xhr.send(formData);
+      }
     }
 
     function updateSelectedFile(input) {
@@ -123,7 +158,6 @@
       })
     });
 
-
     $(document).ready(function () {
       $('#selected-file-name').on('drag dragstart dragend dragover dragenter dragleave drop', function (event) {
         event.preventDefault();
@@ -143,11 +177,11 @@
         });
     });
 
+    // Submit button with upload progress
     $(".progress-btn").click(function () {
       $(".progress-btn").submit();
       event.preventDefault();
     });
-
   </script>
 </body>
 
