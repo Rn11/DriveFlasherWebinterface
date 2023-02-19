@@ -402,13 +402,20 @@ button:disabled {
     margin-top: 10px;
     color: #ddd;
     font-size: large;
+    text-align: center;
     border: 1px solid grey;
     border-style: dashed;
     padding: 1.5em;
     transition: all 0.5s ease
 }
 
-#selected-file-name:hover {
+#selected-file-name:hover  {
+    border-color: #508C50;
+    color: #91df91;
+}
+
+/* for dragover effect with file */
+#selected-file-name.is-dragover {
     border-color: #508C50;
     color: #91df91;
 }
