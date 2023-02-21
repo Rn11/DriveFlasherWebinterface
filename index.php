@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Drive flasher</title>
   <link rel="stylesheet" type="text/css" href="style.css">
-
 </head>
 
 <body>
@@ -18,8 +17,6 @@
         <input type="file" name="file" id="file" onchange="updateSelectedFile(this)"
           accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
         <div><label for="file">Choose a file</label></div>
-
-
 
         <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
           <div class="btn">Upload</div>
@@ -84,6 +81,8 @@
                 }
 
                 console.log("Starting file upload!");
+                // for enabling checkboxes in table
+                // TODO: filter for system drives (mmcblk), leave them disabled
                 document.querySelector(".table-flash-container table").removeAttribute("disabled");
                 const checkboxes = document.querySelectorAll("input[type='checkbox']");
                 checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
@@ -117,12 +116,12 @@
           };
           xhr.send(formData);
         } else {
-          document.getElementById("selected-file-name").innerHTML = "Invalid file type.<br> Only "
+          document.getElementById("selected-file-name").innerHTML = "Invalid file type.<br>Only "
             + allowed_extensions.join(", ") + " files are allowed.";
         }
       }
     }
-
+    // function for updating the selected file label
     function updateSelectedFile(input) {
       const selectedFile = input.files[0];
       const selectedFileName = selectedFile ? selectedFile.name : "";
@@ -132,6 +131,7 @@
   </script>
 
   <script>
+    // for colouring selected table rows green / resetting color back to normal via RGBA
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
     checkboxes.forEach(checkbox => {
       checkbox.addEventListener("click", function () {
