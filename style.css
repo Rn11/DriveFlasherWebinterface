@@ -356,7 +356,7 @@ button:disabled {
     color: #ddd;
     font-size: large;
     text-align: center;
-    border: 1px solid grey;
+    border: 2.5px solid grey;
     border-style: dashed;
     padding: 1.5em;
     transition: all 0.5s ease
@@ -365,12 +365,14 @@ button:disabled {
 #selected-file-name:hover  {
     border-color: #508C50;
     color: #91df91;
+    font-size: x-large;
 }
 
 /* for dragover effect with file */
 #selected-file-name.is-dragover {
     border-color: #508C50;
     color: #91df91;
+    font-size: x-large;
 }
 
 .form-group label:hover {
@@ -390,3 +392,42 @@ button:disabled {
     color: #ddd;
     background: green;
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(99, 99, 99);
+    color: #ddd;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 105%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition:visibility 0.5s ease-out,opacity 0.5s ease-out;
+    transition-delay: 1.5s;
+  }
+  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent rgb(99, 99, 99) transparent;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }

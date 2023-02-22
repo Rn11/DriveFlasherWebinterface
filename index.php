@@ -44,12 +44,15 @@
           if (preg_match("/[Mm]/", $matches[2])) {
             $size = $size / 1024;
           }
-          echo "<tr><td>$drive</td><td>$size</td><td><input type='checkbox' disabled></td></tr>\n";
+          echo "<tr><td>/dev/$drive</td><td>$size</td><td><input type='checkbox' disabled></td></tr>\n";
         }
       }
       ?>
     </table>
+    <div class="tooltip">
     <button class="button btnFlash" type="button" disabled>Flash drive!</button>
+  <span class="tooltiptext">Upload an image and select a drive first!</span>
+    </div>
   </div>
   <script src="./js/libs/jquery-2.1.3.min.js"></script>
   <script scr="./js/index.js">
