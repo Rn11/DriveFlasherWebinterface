@@ -31,9 +31,10 @@ body {
     flex-flow: column wrap;
     align-items: center;
     padding: 2em;
-    width: 30%;
+    width: 35%;
+    height: 85%;
+    color: #ddd;
     background-color: #1313136b;
-    margin: auto;
     border-radius: 15px;
     backdrop-filter: blur(15px);
 }
@@ -366,6 +367,7 @@ button:disabled {
     border-color: #508C50;
     color: #91df91;
     font-size: x-large;
+    white-space: nowrap;
 }
 
 /* for dragover effect with file */
@@ -395,12 +397,12 @@ button:disabled {
 
 .tooltip {
     position: relative;
-    display: inline-block;
+    display: flex;
   }
   
   .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: auto;
     background-color: rgb(99, 99, 99);
     color: #ddd;
     text-align: center;
@@ -414,13 +416,13 @@ button:disabled {
     opacity: 0;
     transition:visibility 0.5s ease-out,opacity 0.5s ease-out;
     transition-delay: 1.5s;
+    white-space: nowrap;
   }
   
   .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
     bottom: 100%;
-    left: 50%;
     margin-left: -5px;
     border-width: 5px;
     border-style: solid;
@@ -431,8 +433,6 @@ button:disabled {
     visibility: visible;
     opacity: 1;
   }
-
-
 
 .mode-selection {
     display: flex;
@@ -445,4 +445,10 @@ button:disabled {
     margin: auto;
     border-radius: 15px;
     backdrop-filter: blur(15px);
+    justify-content: space-around;
+}
+@media screen and (max-width: 992px) {
+    .mode-selection {
+        width: 80%;
+    }
 }

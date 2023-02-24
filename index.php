@@ -27,7 +27,17 @@
   </div>
 
   <div class="file-upload-container">
-    FORMAT DEVICE
+  <h4 class="headline">Format device</h4>
+  <span>Please select a file system</span>
+  <select>
+  <option>NTFS</option>
+  <option>FAT32</option>
+  <option>exFAT</option>
+  <option>ext4</option>
+  <option>btrfs</option>
+  <option>ReiserFS</option>
+  <option>F2FS</option>
+</select>
   </div>
   </div>
   </div>
