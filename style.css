@@ -499,3 +499,10 @@ button:disabled {
     width: 95%;
     flex-flow: column;
   }
+
+  .divider {
+    display: flex;
+    flex-flow: column;
+  
+    height: 100%;
+    }
