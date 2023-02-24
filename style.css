@@ -431,3 +431,18 @@ button:disabled {
     visibility: visible;
     opacity: 1;
   }
+
+
+
+.mode-selection {
+    display: flex;
+    flex-flow: row;
+    display: flex;
+    align-items: center;
+    padding: 2em;
+    width: 40%;
+    background-color: #1313132b;
+    margin: auto;
+    border-radius: 15px;
+    backdrop-filter: blur(15px);
+}
