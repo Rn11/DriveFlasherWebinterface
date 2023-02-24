@@ -2,8 +2,8 @@ html,
 body {
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
-    height: 100%;
     color: #ddd;
+    height: 100%;
 }
 
 body {
@@ -22,6 +22,13 @@ body {
     }
 }
 
+.divider {
+    display: flex;
+    flex-flow: column;
+  
+    height: 100%;
+    }
+
 .headline {
     color: rgba(255, 255, 255, 0.8);
     font-size: larger;
@@ -32,6 +39,7 @@ body {
     color: rgba(255, 255, 255, 0.8);
     font-size: larger;
     text-shadow: -1px -1px 0 #5555552b, 1px -1px 0 #5555552b, -1px 1px 0 #5555552b, 1px 1px 0 #5555552b;
+    text-align: center;
 }
 
 .file-upload-container {
@@ -42,7 +50,7 @@ body {
    /* width: 95%;*/
     height: 75%;
     color: #ddd;
-    background-color: #1313136b;
+    background-color: #13131329;
     border-radius: 15px;
     backdrop-filter: blur(15px);
 }
@@ -201,12 +209,12 @@ input[type="submit"] .progress {
 }
 
 table.responsive {
-    border: thick solid rgba(42, 42, 42, 0.8);
+    border: thin solid rgba(42, 42, 42, 0.8);
     background-color: rgba(82, 84, 81, 0.8);
     width: 400px;
     text-align: center;
     border-spacing: 0;
-    border-radius: 10px;
+    border-radius: 3px;
     width: 100%;
     height: 100%;
 }
@@ -500,9 +508,3 @@ button:disabled {
     flex-flow: column;
   }
 
-  .divider {
-    display: flex;
-    flex-flow: column;
-  
-    height: 100%;
-    }
