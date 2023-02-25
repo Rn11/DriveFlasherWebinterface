@@ -50,6 +50,7 @@
         <option>ReiserFS</option>
         <option>F2FS</option>
       </select>
+      <button class="button">Format drive</button>
     </div>
 
   </div>
