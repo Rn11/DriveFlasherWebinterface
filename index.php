@@ -15,9 +15,8 @@
       <button class="tablinks" id="tab-format" onclick="openTabContent(event, 'format')">Format drive</button>
     </div>
     <div id="flash" class="tabcontent">
-      <h3 class="sub-headline">Flash</h3>
-
       <div class="file-upload-container">
+      <h3 class="sub-headline">Flash a drive</h3>
         <h4 class="headline">Select a file to upload</h4>
         <div id="selected-file-name">No file selected</div>
         <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
@@ -37,7 +36,6 @@
   </div>
 
   <div id="format" class="tabcontent">
-    <h3 class="sub-headline">Format</h3>
     <div class="file-upload-container">
       <h4 class="headline">Format device</h4>
       <span>Please select a file system</span>
