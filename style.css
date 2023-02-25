@@ -45,10 +45,11 @@ body {
     display: flex;
     flex-flow: column;
     align-items: center;
-    padding: 2em;
     color: #ddd;
     background-color: #13131329;
     backdrop-filter: blur(15px);
+    padding: 0;
+    width: 100%;
 }
 
 .table-flash-container {
@@ -359,6 +360,10 @@ button:disabled {
     pointer-events: auto;
 }
 
+.drive-checkbox {
+    scale: 200%;
+}
+
 #file-upload-container {
     background-color: #f7f7f7;
     padding: 20px;
@@ -451,9 +456,7 @@ button:disabled {
     flex-flow: column;
     display: flex;
     align-items: center;
-    padding: 2em;
-    padding-bottom: 0;
-    padding-top: 0px;
+    padding: 0;
     width: 50%;
     background-color: #1313132b;
     margin: auto;
@@ -474,7 +477,7 @@ button:disabled {
 .tab {
     overflow: hidden;
     background-color: #6e6e6e0f;
-    width: 107%;
+    width: 100%;
     border-radius: 15px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
@@ -487,7 +490,8 @@ button:disabled {
     border: none;
     outline: none;
     cursor: pointer;
-    padding: 14px 16px;
+    /*  padding: 14px 16px;*/
+    padding: 1em;
     transition: 0.3s;
     font-size: 17px;
     width: 50%;
@@ -510,6 +514,6 @@ button:disabled {
 .tabcontent {
     display: none;
     border: none;
-    width: 107%;
+    width: 100%;
     flex-flow: column;
 }

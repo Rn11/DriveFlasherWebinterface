@@ -73,7 +73,7 @@
           if (preg_match("/[Mm]/", $matches[2])) {
             $size = $size / 1024;
           }
-          echo "<tr><td>/dev/$drive</td><td>$size</td><td><input type='checkbox' disabled></td></tr>\n";
+          echo "<tr><td>/dev/$drive</td><td>$size</td><td><input class='drive-checkbox' type='checkbox' disabled></td></tr>\n";
         }
       }
       ?>
