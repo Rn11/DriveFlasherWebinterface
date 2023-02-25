@@ -67,7 +67,7 @@ body {
 
 @media screen and (max-width: 992px) {
     .file-upload-container {
-        width: 80%;
+        width: 100%;
     }
 
     .table-flash-container {
@@ -226,7 +226,7 @@ table.responsive th {
 }
 
 table.responsive tbody td {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
     color: #FFFFFF;
     border-bottom-width: thin;
@@ -361,7 +361,7 @@ button:disabled {
 }
 
 .drive-checkbox {
-    scale: 200%;
+    scale: 145%;
 }
 
 #file-upload-container {
@@ -501,13 +501,20 @@ button:disabled {
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    color: #ddd;
+    color: #fff;
     background-color: #f443369c;
+    transition: all 0.2s ease;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
     background-color: #f44336;
+    color: #fff;
+}
+
+.tab button.active:hover {
+    text-shadow: 0 0 3px #DBDBDB, 0 0 5px #d3d3d3;
+    transition: all 0.2s ease;
 }
 
 /* Style the tab content */
@@ -516,4 +523,8 @@ button:disabled {
     border: none;
     width: 100%;
     flex-flow: column;
+}
+
+.file-upload-container {
+    width: 100%;
 }
