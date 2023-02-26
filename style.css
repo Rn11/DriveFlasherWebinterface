@@ -160,6 +160,11 @@ input[type="submit"] .progress {
     text-align: center;
     z-index: 10;
     opacity: 1;
+    transition: all 0.2s linear;
+}
+
+.btn:hover {
+    text-shadow: 0 0 3px #DBDBDB, 0 0 5px #d3d3d3;
 }
 
 .progress-btn .progress {
@@ -509,13 +514,13 @@ button:disabled {
     width: 50%;
     color: #ddd;
     font-weight: bold;
+    transition: all 02.2s ease;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
     color: #fff;
     background-color: #f443369c;
-    transition: all 0.2s ease;
 }
 
 /* Create an active/current tablink class */
@@ -526,7 +531,6 @@ button:disabled {
 
 .tab button.active:hover {
     text-shadow: 0 0 3px #DBDBDB, 0 0 5px #d3d3d3;
-    transition: all 0.2s ease;
 }
 
 /* Style the tab content */
