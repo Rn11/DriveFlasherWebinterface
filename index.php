@@ -39,7 +39,8 @@
     <div class="file-upload-container">
       <h4 class="headline">Format device</h4>
       <span>Please select a file system</span>
-      <select class="select-fs">
+      <select class="select-fs" onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
+      <option hidden disabled selected value> -- select an option -- </option>
         <option>NTFS</option>
         <option>FAT32</option>
         <option>exFAT</option>
@@ -48,7 +49,6 @@
         <option>ReiserFS</option>
         <option>F2FS</option>
       </select>
-      <button class="button">Format drive</button>
     </div>
 
   </div>

@@ -123,6 +123,19 @@ checkboxes.forEach(checkbox => {
   });
 });
 
+// for making a div blink
+function blinkDiv(divName) {
+  var element = document.getElementsByClassName(divName)[0];
+
+  //$('#' + divName).addClass('blinkDiv');
+  if (element.classList.length > 1) {
+    console.log("Contains!");
+    element.className = divName;
+    //element.classList.remove("blinkDiv");
+  }
+  element.className += ' blinkDiv';
+}
+
 $(document).ready(function () {
   $(".progress-btn").on("click", function () {
     var progressBtn = $(this);
