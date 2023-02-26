@@ -79,7 +79,7 @@
       ?>
     </table>
     <div class="tooltip">
-      <button class="button btnFlash" type="button" disabled>Flash drive!</button>
+      <button id="btnFlash" class="button btnFlash" type="button" disabled>Flash drive!</button>
       <span class="tooltiptext">Upload an image and select a drive first!</span>
     </div>
   </div>

@@ -78,10 +78,14 @@ function updateSelectedFile(input) {
 // Tab section
 //make tabflash enabled by default
 document.getElementById("flash").style.display = "flex";
-document.getElementById("tab-flash").className  += " active";
+document.getElementById("tab-flash").className += " active";
 function openTabContent(evt, modeName) {
-
-
+  // change flash button label to format, if mode is format
+  if (modeName == "format") {
+    document.getElementById("btnFlash").innerHTML = "Format drive!";
+  } else if (modeName == "flash") {
+    document.getElementById("btnFlash").innerHTML = "Flash drive!";
+  }
 
   var i, tabcontent, tablinks;
 
