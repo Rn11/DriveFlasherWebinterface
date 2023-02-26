@@ -9,8 +9,9 @@ body {
 body {
     display: flex;
     background-image: url("bg.jpg");
+    background-repeat: no-repeat;
     backdrop-filter: blur(5px);
-    background-size: auto;
+    background-size: cover;
     background-position: center, center;
     margin: 0;
     flex-flow: column;
@@ -327,6 +328,9 @@ button:disabled {
     background-color: #8b8b8b8c;
     color: #333;
     border-radius: 5px;
+    align-self: center;
+    width: 25%;
+    white-space: nowrap;
 }
 
 .upload-section {
@@ -434,17 +438,21 @@ button:disabled {
     position: relative;
     display: flex;
     margin: 2%;
+    flex-flow: column;
+    width: 100%;
+    overflow: visible;
 }
 
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: auto;
+    width: fit-content;
+    height: fit-content;
+    align-self: center;
     background-color: rgb(99, 99, 99);
     color: #ddd;
     text-align: center;
     border-radius: 6px;
     padding: 6px;
-    position: absolute;
     z-index: 1;
     top: 100%;
     left: -50%;
@@ -456,12 +464,12 @@ button:disabled {
 
 .tooltip .tooltiptext::after {
     content: "";
-    position: absolute;
-    bottom: 100%;
+    position: relative;
+    bottom: 159%;
+    left: -50%;
     border-width: 5px;
     border-style: solid;
     border-color: transparent transparent rgb(99, 99, 99) transparent;
-    left: 50%;
 }
 
 .tooltip:hover .tooltiptext {
@@ -487,7 +495,10 @@ button:disabled {
 @media screen and (max-width: 992px) {
     .mode-selection {
         width: 80%;
+        height: 50%;
     }
+
+
 }
 
 
@@ -515,6 +526,7 @@ button:disabled {
     width: 50%;
     color: #ddd;
     font-weight: bold;
+    white-space: nowrap;
     transition: all 0.2s ease;
 }
 
@@ -528,6 +540,7 @@ button:disabled {
 .tab button.active {
     background-color: #f44336;
     color: #fff;
+    height: 100%;
 }
 
 .tab button.active:hover {
@@ -551,4 +564,29 @@ button:disabled {
     width: 20%;
     text-align: center;
     font-size: medium;
+}
+
+@media screen and (max-width: 992px) {
+    .select-fs {
+        width: 70%;
+        text-align: center;
+        font-size: medium;
+    }
+
+    button[disabled=disabled],
+    button:disabled {
+        width: 55%;
+    }
+
+    form {
+        width: 100%;
+    }
+}
+
+@media screen and (max-height: 734px) {
+
+    html,
+    body {
+        height: fit-content;
+    }
 }
