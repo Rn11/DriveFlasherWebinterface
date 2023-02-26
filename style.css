@@ -481,7 +481,7 @@ button:disabled {
     margin: auto;
     border-radius: 15px;
     backdrop-filter: blur(15px);
-    overflow: clip;
+    overflow: visible;
 }
 
 @media screen and (max-width: 992px) {
@@ -498,6 +498,7 @@ button:disabled {
     border-radius: 15px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    overflow: clip;
 }
 
 /* Style the buttons inside the tab */
