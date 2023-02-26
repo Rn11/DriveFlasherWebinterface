@@ -18,9 +18,9 @@
       <div class="file-upload-container">
       <h3 class="sub-headline">Flash a drive</h3>
         <h4 class="headline">Select a file to upload</h4>
-        <div id="selected-file-name">No file selected</div>
         <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
           <div class="form-group">
+          <label for="file" id="selected-file-name">No file selected</label>
             <input type="file" name="file" id="file" onchange="updateSelectedFile(this)"
               accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
             <label for="file">Choose a file</label>
@@ -39,7 +39,7 @@
     <div class="file-upload-container">
       <h4 class="headline">Format device</h4>
       <span>Please select a file system</span>
-      <select>
+      <select class="select-fs">
         <option>NTFS</option>
         <option>FAT32</option>
         <option>exFAT</option>
