@@ -515,7 +515,7 @@ button:disabled {
     width: 50%;
     color: #ddd;
     font-weight: bold;
-    transition: all 02.2s ease;
+    transition: all 0.2s ease;
 }
 
 /* Change background color of buttons on hover */
