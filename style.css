@@ -312,8 +312,30 @@ table.responsive tfoot .links a {
     background-color: #ddd;
     color: #333;
     border-radius: 5px;
-
     transition: all 0.2s ease;
+
+    padding: 15px 32px;
+    margin: 4px 2px;
+    padding: 1em 0;
+    width: 25%;
+
+    border: none;
+    color: rgba(83, 83, 83, 0.5);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    display: inline-block;
+    padding: 1em 0;
+    background-color: #8b8b8b8c;
+    color: #333;
+    border-radius: 5px;
+    align-self: center;
+    width: 25%;
+    white-space: nowrap;
+    background: #ddd;
 }
 
 button[disabled=disabled],
@@ -574,6 +596,10 @@ button:disabled {
         font-size: medium;
     }
 
+    .button {
+        width: 55%;
+    }
+
     button[disabled=disabled],
     button:disabled {
         width: 55%;
@@ -591,12 +617,26 @@ button:disabled {
 }
 
 /* blink effect after fs has been selected */
-@keyframes blinkingDiv{
-    0%		{filter: brightness(100%);}
-    25%		{filter: brightness(115%);}
-    50%		{filter: brightness(145%);}
-    75%		{filter: brightness(115%);}
-    100%	{filter: brightness(100%);}
+@keyframes blinkingDiv {
+    0% {
+        filter: brightness(100%);
+    }
+
+    25% {
+        filter: brightness(115%);
+    }
+
+    50% {
+        filter: brightness(145%);
+    }
+
+    75% {
+        filter: brightness(115%);
+    }
+
+    100% {
+        filter: brightness(100%);
+    }
 }
 
 .blinkDiv {

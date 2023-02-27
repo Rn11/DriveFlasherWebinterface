@@ -25,12 +25,11 @@ function uploadFile() {
             }
 
             console.log("Starting file upload!");
+
             // for enabling checkboxes in table
             // TODO: filter for system drives (mmcblk), leave them disabled
-            document.querySelector(".table-flash-container table").removeAttribute("disabled");
-            const checkboxes = document.querySelectorAll("input[type='checkbox']");
-            checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
-            document.querySelector(".btnFlash").removeAttribute("disabled");
+            enableTableFlashDiv();
+
           } else if (xhr.status === 400) {
             console.log("File upload failed, status code: " + xhr.status);
             document.getElementById("selected-file-name").innerHTML = "Bad request";
@@ -66,6 +65,13 @@ function uploadFile() {
   }
 }
 
+function enableTableFlashDiv() {
+  document.querySelector(".table-flash-container table").removeAttribute("disabled");
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(checkbox => checkbox.removeAttribute("disabled"));
+  document.querySelector(".btnFlash").removeAttribute("disabled");
+}
+
 // function for updating the selected file label
 function updateSelectedFile(input) {
   const selectedFile = input.files[0];
@@ -97,8 +103,11 @@ function openTabContent(evt, modeName) {
     var element = document.getElementsByClassName("table-flash-container")[0];
     var newElement = element.cloneNode(true);
     element.parentNode.replaceChild(newElement, element);
+
+    // enable table flash if not yet enabled
+    enableTableFlashDiv();
   });
-  
+
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
