@@ -98,6 +98,7 @@ form {
     width: 100%;
     max-width: 100%;
     justify-content: space-around;
+    padding: 1em 0;
 }
 
 #file {
@@ -443,6 +444,7 @@ button:disabled {
     flex-flow: column;
     width: 100%;
     overflow: visible;
+    padding: 1em 0;
 }
 
 .tooltip .tooltiptext {
@@ -486,6 +488,7 @@ button:disabled {
     align-items: center;
     padding: 0;
     width: 50%;
+    height: 50%;
     background-color: #1313132b;
     margin: auto;
     border-radius: 15px;
@@ -600,4 +603,9 @@ button:disabled {
     animation: blinkingDiv 0.35s 2;
     animation-delay: 0.75s;
     transition: all 0.2 ease;
+}
+
+.fsSelectDiv {
+    height: 100%;
+    padding-bottom: 6em;
 }

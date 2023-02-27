@@ -80,15 +80,26 @@ function updateSelectedFile(input) {
 document.getElementById("flash").style.display = "flex";
 document.getElementById("tab-flash").className += " active";
 function openTabContent(evt, modeName) {
-  // change flash button label to format, if mode is format
+  // change flash button label and headline to format, if mode is format
+  // else change labels to flash
   if (modeName == "format") {
-    document.getElementById("btnFlash").innerHTML = "Format drive!";
+    $("#btnFlash").html("Format drive!");
+    $("#headline-table-selection").html("Select the drives to format");
   } else if (modeName == "flash") {
-    document.getElementById("btnFlash").innerHTML = "Flash drive!";
+    $("#btnFlash").html("Flash drive!");
+    $("#headline-table-selection").html("Select the drives to flash");
   }
 
+  $(".select-fs").change(function () {
+    // set animation for element
+    $(".blinkDiv").css("animation-play-state", "running");
+    // remove and re-add element so animation gets reset
+    var element = document.getElementsByClassName("table-flash-container")[0];
+    var newElement = element.cloneNode(true);
+    element.parentNode.replaceChild(newElement, element);
+  });
+  
   var i, tabcontent, tablinks;
-
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";

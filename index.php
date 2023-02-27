@@ -36,7 +36,7 @@
   </div>
 
   <div id="format" class="tabcontent">
-    <div class="file-upload-container">
+    <div class="file-upload-container fsSelectDiv">
       <h4 class="headline">Format device</h4>
       <span>Please select a file system</span>
       <select class="select-fs" onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
@@ -57,7 +57,7 @@
 
 
   <div class="table-flash-container">
-    <h4 class="headline">Select the drives to flash</h4>
+    <h4 class="headline" id="headline-table-selection">Select the drives to flash</h4>
     <table class="responsive" disabled>
       <tr>
         <th>Drive</th>
