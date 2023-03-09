@@ -80,7 +80,6 @@ function updateSelectedFile(input) {
   selectedFileNameContainer.textContent = selectedFileName;
 }
 
-
 // Tab section
 //make tabflash enabled by default
 document.getElementById("flash").style.display = "flex";
@@ -96,6 +95,7 @@ function openTabContent(evt, modeName) {
     $("#headline-table-selection").html("Select the drives to flash");
   }
 
+  // for making a div blink
   $(".select-fs").change(function () {
     // set animation for element
     $(".blinkDiv").css("animation-play-state", "running");
@@ -106,8 +106,15 @@ function openTabContent(evt, modeName) {
 
     // enable table flash if not yet enabled
     enableTableFlashDiv();
+
+    // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
+    // this way we'll make sure the flash / format drive button always has an event listener
+    $("#btnFlash").on('click', function () {
+      sendData();
+    });
   });
 
+  // for switching tabs (modes)
   var i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
@@ -156,6 +163,57 @@ function blinkDiv(divName) {
   element.className += ' blinkDiv';
 }
 
+// send data to drive util
+$(document).ready(function () {
+  $("#btnFlash").on('click', function () {
+    sendData();
+  });
+});
+
+// this function will send the user input to drive-util.php to start flashing / formatting
+function sendData() {
+  var activeTab = $('.tablinks.active').attr('id');
+  var selectedDrives = $('input.drive-checkbox:checked').map(function () {
+    return $(this).closest('tr').find('td:first').text();
+  }).get();
+
+  var data = {
+    'tab': activeTab
+  };
+
+  if (activeTab === 'tab-flash') {
+    var fileName = $('#selected-file-name').text();
+    data['file'] = fileName;
+  } else if (activeTab === 'tab-format') {
+    var fileSystem = $('.select-fs').val();
+    data['filesystem'] = fileSystem;
+  }
+
+  if (selectedDrives.length > 0) {
+    data['drives'] = selectedDrives.join(',');
+  }
+
+console.log(data);
+
+  $.ajax({
+    type: 'POST',
+    url: 'drive-util.php',
+    data: data,
+    success: function (response) {
+      console.log("Success: " + response);
+      // TODO: handle success response here
+    },
+    error: function (xhr, status, error) {
+      console.log("Error: " + xhr.responseText);
+      // TODO: handle error response here
+    }
+  });
+}
+
+
+
+
+// progress button
 $(document).ready(function () {
   $(".progress-btn").on("click", function () {
     var progressBtn = $(this);
