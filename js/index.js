@@ -173,45 +173,41 @@ $(document).ready(function () {
 // this function will send the user input to drive-util.php to start flashing / formatting
 function sendData() {
   var activeTab = $('.tablinks.active').attr('id');
-  var selectedDrives = $('input.drive-checkbox:checked').map(function () {
-    return $(this).closest('tr').find('td:first').text();
-  }).get();
+  var selectedDrives = [];
+  $('.drive-checkbox:checked').each(function () {
+    selectedDrives.push($(this).closest('tr').find('td:first-child').text().trim());
+  });
 
   var data = {
-    'tab': activeTab
+    'activeTab': activeTab,
+    'selectedDrives': selectedDrives
   };
 
   if (activeTab === 'tab-flash') {
-    var fileName = $('#selected-file-name').text();
-    data['file'] = fileName;
-  } else if (activeTab === 'tab-format') {
-    var fileSystem = $('.select-fs').val();
-    data['filesystem'] = fileSystem;
+    data['fileName'] = $('#selected-file-name').text();
+  } else {
+    data['selectedFileSystem'] = $('.select-fs').val();
   }
-
-  if (selectedDrives.length > 0) {
-    data['drives'] = selectedDrives.join(',');
-  }
-
-console.log(data);
 
   $.ajax({
     type: 'POST',
     url: 'drive-util.php',
     data: data,
+    dataType: 'json',
+    encode: true,
     success: function (response) {
-      console.log("Success: " + response);
+      console.log("Response: " + response.success);
+      alert(JSON.stringify(response.message));
       // TODO: handle success response here
     },
+    // the following will be needed if the XHR request itself threw an error, NOT for error handling from drive-util.php response
     error: function (xhr, status, error) {
-      console.log("Error: " + xhr.responseText);
+      console.log("Error: " + xhr.responseText, status, error);
+      alert("Error: " + xhr.responseText);
       // TODO: handle error response here
     }
   });
 }
-
-
-
 
 // progress button
 $(document).ready(function () {
@@ -245,4 +241,3 @@ $(".progress-btn").click(function () {
   $(".progress-btn").submit();
   event.preventDefault();
 });
-

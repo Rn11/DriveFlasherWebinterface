@@ -39,7 +39,7 @@
     <div class="file-upload-container fsSelectDiv">
       <h4 class="headline">Format device</h4>
       <span>Please select a file system</span>
-      <select class="select-fs" onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
+      <select class="select-fs" autocomplete="off" onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
       <option hidden disabled selected value> -- select an option -- </option>
         <option>NTFS</option>
         <option>FAT32</option>
@@ -73,7 +73,7 @@
           if (preg_match("/[Mm]/", $matches[2])) {
             $size = $size / 1024;
           }
-          echo "<tr><td>/dev/$drive</td><td>$size</td><td><input class='drive-checkbox' type='checkbox' disabled></td></tr>\n";
+          echo "<tr><td>/dev/$drive</td><td>$size</td><td><input class='drive-checkbox' type='checkbox' autocomplete='off' disabled></td></tr>\n";
         }
       }
       ?>
