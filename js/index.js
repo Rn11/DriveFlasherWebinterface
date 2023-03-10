@@ -23,10 +23,9 @@ function uploadFile() {
                 progressBtn.removeClass("active");
               }, 10000);
             }
-
             console.log("Starting file upload!");
 
-            // for enabling checkboxes in table
+            // for enabling the drive selection table
             // TODO: filter for system drives (mmcblk), leave them disabled
             enableTableFlashDiv();
 
@@ -65,6 +64,7 @@ function uploadFile() {
   }
 }
 
+// function for enabling the lower container containing the drive table and the start button (after successful file upload or after selecting a fs)
 function enableTableFlashDiv() {
   document.querySelector(".table-flash-container table").removeAttribute("disabled");
   const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -172,7 +172,9 @@ $(document).ready(function () {
 
 // this function will send the user input to drive-util.php to start flashing / formatting
 function sendData() {
+  // determine which tab / mode is selected
   var activeTab = $('.tablinks.active').attr('id');
+  // get the selected drives from the table
   var selectedDrives = [];
   $('.drive-checkbox:checked').each(function () {
     selectedDrives.push($(this).closest('tr').find('td:first-child').text().trim());
@@ -183,9 +185,12 @@ function sendData() {
     'selectedDrives': selectedDrives
   };
 
+  // if the mode is flash, get the file name of the uploaded file
   if (activeTab === 'tab-flash') {
     data['fileName'] = $('#selected-file-name').text();
-  } else {
+  }
+  // if mode is format, get the selected filesystem 
+  else {
     data['selectedFileSystem'] = $('.select-fs').val();
   }
 
@@ -196,15 +201,19 @@ function sendData() {
     dataType: 'json',
     encode: true,
     success: function (response) {
-      console.log("Response: " + response.success);
-      alert(JSON.stringify(response.message));
-      // TODO: handle success response here
+      // check if operation was successful and handle success response here
+      if (response.success) { // if operation was successful
+        console.log("Response: " + response.success);
+        alert(JSON.stringify(response.message).replace(/"/g, ''));
+      } else { // operation did not succeed
+        alert(JSON.stringify(response.message).replace(/"/g, ''));
+      }
     },
     // the following will be needed if the XHR request itself threw an error, NOT for error handling from drive-util.php response
     error: function (xhr, status, error) {
+      // TODO: add further error handling here
       console.log("Error: " + xhr.responseText, status, error);
-      alert("Error: " + xhr.responseText);
-      // TODO: handle error response here
+      alert("Error: " + xhr.responseText).replace(/"/g, '');
     }
   });
 }
