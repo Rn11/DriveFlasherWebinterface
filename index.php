@@ -5,53 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Drive flasher</title>
   <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="./js/libs/dark.css">
+  <style>
+    body.swal2-height-auto {
+      height: 100vh !important;
+    }
+  </style>
 </head>
 
 <body>
-<div class="divider">
-  <div class="mode-selection">
-    <div class="tab">
-      <button class="tablinks" id="tab-flash" onclick="openTabContent(event, 'flash')">Flash image</button>
-      <button class="tablinks" id="tab-format" onclick="openTabContent(event, 'format')">Format drive</button>
-    </div>
-    <div id="flash" class="tabcontent">
-      <div class="file-upload-container">
-      <h3 class="sub-headline">Flash a drive</h3>
-        <h4 class="headline">Select a file to upload</h4>
-        <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
-          <div class="form-group">
-          <label for="file" id="selected-file-name">No file selected</label>
-            <input type="file" name="file" id="file" onchange="updateSelectedFile(this)"
-              accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
-            <label for="file">Choose a file</label>
+  <div class="divider">
+    <div class="mode-selection">
+      <div class="tab">
+        <button class="tablinks" id="tab-flash" onclick="openTabContent(event, 'flash')">Flash image</button>
+        <button class="tablinks" id="tab-format" onclick="openTabContent(event, 'format')">Format drive</button>
+      </div>
+      <div id="flash" class="tabcontent">
+        <div class="file-upload-container">
+          <h3 class="sub-headline">Flash a drive</h3>
+          <h4 class="headline">Select a file to upload</h4>
+          <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
+            <div class="form-group">
+              <label for="file" id="selected-file-name">No file selected</label>
+              <input type="file" name="file" id="file" onchange="updateSelectedFile(this)"
+                accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
+              <label for="file">Choose a file</label>
 
-            <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
-              <div class="btn">Upload</div>
-              <div class="progress"></div>
-            </div>
-        </form>
+              <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
+                <div class="btn">Upload</div>
+                <div class="progress"></div>
+              </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="format" class="tabcontent">
+      <div class="file-upload-container fsSelectDiv">
+        <h4 class="headline">Format device</h4>
+        <span>Please select a file system</span>
+        <select class="select-fs" autocomplete="off"
+          onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
+          <option hidden disabled selected value> -- select an option -- </option>
+          <option>NTFS</option>
+          <option>FAT32</option>
+          <option>exFAT</option>
+          <option>ext4</option>
+          <option>btrfs</option>
+          <option>ReiserFS</option>
+          <option>F2FS</option>
+        </select>
       </div>
 
     </div>
-  </div>
-
-  <div id="format" class="tabcontent">
-    <div class="file-upload-container fsSelectDiv">
-      <h4 class="headline">Format device</h4>
-      <span>Please select a file system</span>
-      <select class="select-fs" autocomplete="off" onchange="if (this.selectedIndex) blinkDiv('table-flash-container');">
-      <option hidden disabled selected value> -- select an option -- </option>
-        <option>NTFS</option>
-        <option>FAT32</option>
-        <option>exFAT</option>
-        <option>ext4</option>
-        <option>btrfs</option>
-        <option>ReiserFS</option>
-        <option>F2FS</option>
-      </select>
-    </div>
-
-  </div>
   </div>
 
 
@@ -84,10 +91,11 @@
     </div>
   </div>
 
-    </div>
+  </div>
 
 
   <script src="./js/libs/jquery-2.1.3.min.js"></script>
+  <script src="./js/libs/sweetalert2.js"></script>
   <script src="./js/index.js"></script>
 </body>
 

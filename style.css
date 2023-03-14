@@ -17,7 +17,7 @@ body {
     display: flex;
     flex-flow: column;
     backdrop-filter: blur(5px);
-    height: inherit;
+    height: inherit !important;
 }
 
 @media screen and (max-width: 992px) {
@@ -29,7 +29,7 @@ body {
 .divider {
     display: flex;
     flex-flow: column;
-    height: inherit;
+    height: 100vh;
 }
 
 .headline {
@@ -654,4 +654,8 @@ button:disabled {
     html {
         height: 100vh;
     }
+}
+
+body.swal2-height-auto {
+    height: 100vh !important;
 }

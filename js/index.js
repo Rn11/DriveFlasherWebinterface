@@ -201,19 +201,38 @@ function sendData() {
     dataType: 'json',
     encode: true,
     success: function (response) {
+
       // check if operation was successful and handle success response here
       if (response.success) { // if operation was successful
         console.log("Response: " + response.success);
-        alert(JSON.stringify(response.message).replace(/"/g, ''));
+        Swal.fire({
+          title: 'Success!',
+          text: JSON.stringify(response.message).replace(/"/g, ''),
+          icon: 'success',
+          confirmButtonText: 'Yay'
+        })
+
       } else { // operation did not succeed
-        alert(JSON.stringify(response.message).replace(/"/g, ''));
+        // fire sweetalert2 alert
+        Swal.fire({
+          title: 'Error!',
+          text: JSON.stringify(response.message).replace(/"/g, ''),
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        })
       }
     },
     // the following will be needed if the XHR request itself threw an error, NOT for error handling from drive-util.php response
     error: function (xhr, status, error) {
       // TODO: add further error handling here
       console.log("Error: " + xhr.responseText, status, error);
-      alert("Error: " + xhr.responseText).replace(/"/g, '');
+      // fire sweetalert2 alert
+      Swal.fire({
+        title: 'Error!',
+        text: xhr.responseText.replace(/"/g, ''),
+        icon: 'error',
+        confirmButtonText: 'Ok'
+      })
     }
   });
 }

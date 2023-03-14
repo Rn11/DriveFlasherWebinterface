@@ -33,6 +33,6 @@ else {
 }
 
 // send response back to JS
-$response = array('status' => true, 'message' => 'Drive operation completed successfully');
+$response = array('success' => true, 'message' => 'Drive operation completed successfully');
 echo json_encode($response);
 ?>
