@@ -23,11 +23,13 @@ function uploadFile() {
                 progressBtn.removeClass("active");
               }, 10000);
             }
-            console.log("Starting file upload!");
+            console.log("Successful file upload!");
 
             // for enabling the drive selection table
             // TODO: filter for system drives (mmcblk), leave them disabled
             enableTableFlashDiv();
+            // remove tooltip
+            $(".tooltiptext").remove();
 
           } else if (xhr.status === 400) {
             console.log("File upload failed, status code: " + xhr.status);
@@ -90,9 +92,11 @@ function openTabContent(evt, modeName) {
   if (modeName == "format") {
     $("#btnFlash").html("Format drive!");
     $("#headline-table-selection").html("Select the drives to format");
+    $(".tooltiptext").text("Select a filesystem and a drive first!");
   } else if (modeName == "flash") {
     $("#btnFlash").html("Flash drive!");
     $("#headline-table-selection").html("Select the drives to flash");
+    $(".tooltiptext").text("Upload an image and select a drive first!");
   }
 
   // for making a div blink
@@ -106,7 +110,7 @@ function openTabContent(evt, modeName) {
 
     // enable table flash if not yet enabled
     enableTableFlashDiv();
-
+    $(".tooltiptext").remove();
     // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
     // this way we'll make sure the flash / format drive button always has an event listener
     $("#btnFlash").on('click', function () {
