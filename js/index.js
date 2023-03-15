@@ -14,7 +14,6 @@ function uploadFile() {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
-
             // Trigger upload button upload progress animation
             const progressBtn = $(".progress-btn");
             if (!progressBtn.hasClass("active")) {
@@ -112,6 +111,7 @@ function openTabContent(evt, modeName) {
 
     // enable table flash if not yet enabled
     enableTableFlashDiv();
+    colorTableRows();
     $(".tooltiptext").remove();
     // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
     // this way we'll make sure the flash / format drive button always has an event listener
@@ -135,27 +135,28 @@ function openTabContent(evt, modeName) {
 }
 
 // for colouring selected table rows green / resetting color back to normal via RGBA
-const checkboxes = document.querySelectorAll("input[type='checkbox']");
-checkboxes.forEach(checkbox => {
-  checkbox.addEventListener("click", function () {
-    const parentRow = this.parentNode.parentNode;
-    const backgroundColor = window.getComputedStyle(parentRow).getPropertyValue("background-color");
-    console.log("current backgroundColor: " + backgroundColor);
-    if (backgroundColor) {
-      const colorValues = backgroundColor.match(/\d+(\.\d+)?/g);
-      let newGreenValue = parseFloat(colorValues[1]);
-      if (this.checked) {
-        newGreenValue += 20;
-      } else {
-        newGreenValue -= 20;
+function colorTableRows() {
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener("click", function () {
+      const parentRow = this.parentNode.parentNode;
+      const backgroundColor = window.getComputedStyle(parentRow).getPropertyValue("background-color");
+      console.log("current backgroundColor: " + backgroundColor);
+      if (backgroundColor) {
+        const colorValues = backgroundColor.match(/\d+(\.\d+)?/g);
+        let newGreenValue = parseFloat(colorValues[1]);
+        if (this.checked) {
+          newGreenValue += 20;
+        } else {
+          newGreenValue -= 20;
+        }
+        console.log("newGreenValue: " + newGreenValue);
+        parentRow.style.backgroundColor = `rgba(${colorValues[0]}, ${newGreenValue}, ${colorValues[2]}, ${colorValues[3]})`;
+        console.log(`New color: rgba(${colorValues[0]}, ${newGreenValue}, ${colorValues[2]}, ${colorValues[3]})`);
       }
-      console.log("newGreenValue: " + newGreenValue);
-      parentRow.style.backgroundColor = `rgba(${colorValues[0]}, ${newGreenValue}, ${colorValues[2]}, ${colorValues[3]})`;
-      console.log(`New color: rgba(${colorValues[0]}, ${newGreenValue}, ${colorValues[2]}, ${colorValues[3]})`);
-    }
+    });
   });
-});
-
+}
 // for making a div blink
 function blinkDiv(divName) {
   const element = document.getElementsByClassName(divName)[0];
