@@ -1,22 +1,22 @@
 // file upload status handling
 function uploadFile() {
   event.preventDefault();
-  var allowed_extensions = ['iso', 'img', 'zip', 'usb', 'bz2', 'bzip2', 'gz', 'vhd', 'gz'];
-  var file = document.getElementById("file").files[0];
+  const allowed_extensions = ['iso', 'img', 'zip', 'usb', 'bz2', 'bzip2', 'gz', 'vhd', 'gz'];
+  let file = document.getElementById("file").files[0];
   if (file) {
     // filter for invalid file extension to prevent file upload
-    var extension = file.name.split('.').pop();
+    let extension = file.name.split('.').pop();
     if (allowed_extensions.indexOf(extension) !== -1) {
-      var formData = new FormData();
+      let formData = new FormData();
       formData.append("file", file);
-      var xhr = new XMLHttpRequest();
+      let xhr = new XMLHttpRequest();
       xhr.open("POST", "upload.php", true);
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
 
             // Trigger upload button upload progress animation
-            var progressBtn = $(".progress-btn");
+            const progressBtn = $(".progress-btn");
             if (!progressBtn.hasClass("active")) {
               progressBtn.addClass("active");
               setTimeout(function () {
@@ -82,6 +82,7 @@ function updateSelectedFile(input) {
   selectedFileNameContainer.textContent = selectedFileName;
 }
 
+
 // Tab section
 //make tabflash enabled by default
 document.getElementById("flash").style.display = "flex";
@@ -99,13 +100,14 @@ function openTabContent(evt, modeName) {
     $(".tooltiptext").text("Upload an image and select a drive first!");
   }
 
+
   // for making a div blink
   $(".select-fs").change(function () {
     // set animation for element
     $(".blinkDiv").css("animation-play-state", "running");
     // remove and re-add element so animation gets reset
-    var element = document.getElementsByClassName("table-flash-container")[0];
-    var newElement = element.cloneNode(true);
+    const element = document.getElementsByClassName("table-flash-container")[0];
+    const newElement = element.cloneNode(true);
     element.parentNode.replaceChild(newElement, element);
 
     // enable table flash if not yet enabled
@@ -119,7 +121,7 @@ function openTabContent(evt, modeName) {
   });
 
   // for switching tabs (modes)
-  var i, tabcontent, tablinks;
+  let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -156,7 +158,7 @@ checkboxes.forEach(checkbox => {
 
 // for making a div blink
 function blinkDiv(divName) {
-  var element = document.getElementsByClassName(divName)[0];
+  const element = document.getElementsByClassName(divName)[0];
 
   //$('#' + divName).addClass('blinkDiv');
   if (element.classList.length > 1) {
@@ -177,68 +179,79 @@ $(document).ready(function () {
 // this function will send the user input to drive-util.php to start flashing / formatting
 function sendData() {
   // determine which tab / mode is selected
-  var activeTab = $('.tablinks.active').attr('id');
+  let activeTab = $('.tablinks.active').attr('id');
   // get the selected drives from the table
-  var selectedDrives = [];
+  let selectedDrives = [];
   $('.drive-checkbox:checked').each(function () {
     selectedDrives.push($(this).closest('tr').find('td:first-child').text().trim());
   });
 
-  var data = {
-    'activeTab': activeTab,
-    'selectedDrives': selectedDrives
-  };
-
-  // if the mode is flash, get the file name of the uploaded file
-  if (activeTab === 'tab-flash') {
-    data['fileName'] = $('#selected-file-name').text();
+  // preliminary check if values are empty
+  if (selectedDrives.length == 0) {
+    Swal.fire({
+      title: 'Error',
+      text: "Please select at least one drive!",
+      icon: 'error',
+      confirmButtonText: 'I see...'
+    })
   }
-  // if mode is format, get the selected filesystem 
   else {
-    data['selectedFileSystem'] = $('.select-fs').val();
-  }
+    var data = {
+      'activeTab': activeTab,
+      'selectedDrives': selectedDrives
+    };
 
-  $.ajax({
-    type: 'POST',
-    url: 'drive-util.php',
-    data: data,
-    dataType: 'json',
-    encode: true,
-    success: function (response) {
+    // if the mode is flash, get the file name of the uploaded file
+    if (activeTab === 'tab-flash') {
+      data['fileName'] = $('#selected-file-name').text();
+    }
+    // if mode is format, get the selected filesystem 
+    else {
+      data['selectedFileSystem'] = $('.select-fs').val();
+    }
 
-      // check if operation was successful and handle success response here
-      if (response.success) { // if operation was successful
-        console.log("Response: " + response.success);
-        Swal.fire({
-          title: 'Success!',
-          text: JSON.stringify(response.message).replace(/"/g, ''),
-          icon: 'success',
-          confirmButtonText: 'Yay'
-        })
+    $.ajax({
+      type: 'POST',
+      url: 'drive-util.php',
+      data: data,
+      dataType: 'json',
+      encode: true,
+      success: function (response) {
 
-      } else { // operation did not succeed
+        // check if operation was successful and handle success response here
+        if (response.success) { // if operation was successful
+          console.log("Response: " + response.success);
+          Swal.fire({
+            title: 'Success!',
+            text: JSON.stringify(response.message).replace(/"/g, ''),
+            icon: 'success',
+            confirmButtonText: 'Yay'
+          })
+
+        } else { // operation did not succeed
+          // fire sweetalert2 alert
+          Swal.fire({
+            title: 'Error!',
+            text: JSON.stringify(response.message).replace(/"/g, ''),
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
+        }
+      },
+      // the following will be needed if the XHR request itself threw an error, NOT for error handling from drive-util.php response
+      error: function (xhr, status, error) {
+        // TODO: add further error handling here
+        console.log("Error: " + xhr.responseText, status, error);
         // fire sweetalert2 alert
         Swal.fire({
           title: 'Error!',
-          text: JSON.stringify(response.message).replace(/"/g, ''),
+          text: xhr.responseText.replace(/"/g, ''),
           icon: 'error',
           confirmButtonText: 'Ok'
         })
       }
-    },
-    // the following will be needed if the XHR request itself threw an error, NOT for error handling from drive-util.php response
-    error: function (xhr, status, error) {
-      // TODO: add further error handling here
-      console.log("Error: " + xhr.responseText, status, error);
-      // fire sweetalert2 alert
-      Swal.fire({
-        title: 'Error!',
-        text: xhr.responseText.replace(/"/g, ''),
-        icon: 'error',
-        confirmButtonText: 'Ok'
-      })
-    }
-  });
+    });
+  }
 }
 
 // progress button
