@@ -412,6 +412,7 @@ button:disabled {
 
 .drive-checkbox {
     scale: 145%;
+    accent-color: #f44336;
 }
 
 #selected-file-name {

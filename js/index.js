@@ -1,3 +1,5 @@
+// this variable will store the sanizited filename of the upload. It's needed to pass the value to drive-util.php
+let uploadFilename;
 // file upload status handling
 function uploadFile() {
   event.preventDefault();
@@ -14,6 +16,7 @@ function uploadFile() {
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
+            uploadFilename = xhr.responseText;
             // Trigger upload button upload progress animation
             const progressBtn = $(".progress-btn");
             if (!progressBtn.hasClass("active")) {
@@ -204,7 +207,8 @@ function sendData() {
 
     // if the mode is flash, get the file name of the uploaded file
     if (activeTab === 'tab-flash') {
-      data['fileName'] = $('#selected-file-name').text();
+      //data['fileName'] = $('#selected-file-name').text();
+      data['fileName'] = uploadFilename;
     }
     // if mode is format, get the selected filesystem 
     else {
@@ -218,7 +222,7 @@ function sendData() {
       dataType: 'json',
       encode: true,
       success: function (response) {
-
+        console.log(data);
         // check if operation was successful and handle success response here
         if (response.success) { // if operation was successful
           console.log("Response: " + response.success);

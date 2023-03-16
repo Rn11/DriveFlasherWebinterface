@@ -12,6 +12,7 @@ if (
 $activeTab = $_POST['activeTab'];
 $selectedDrives = $_POST['selectedDrives'];
 
+
 // check active tab and get related data
 // if tab / mode is "flash"
 if ($activeTab === 'tab-flash') {
@@ -20,7 +21,20 @@ if ($activeTab === 'tab-flash') {
         exit();
     }
     $fileName = $_POST['fileName'];
-    // TODO: process flashing with $selectedDrives and $fileName
+    // check if file name for path traversal or other unwanted, dangerous content
+    // get the absolute path of the file
+    $filepath = realpath('/var/www/xwing.dev/fwdu-driveflasher-development/uploads/' . $fileName);
+
+    // check if the resulting path is under the intended directory
+    if (strpos($filepath, '/var/www/xwing.dev/fwdu-driveflasher-development/uploads') === false) {
+        echo json_encode(array('success' => false, 'message' => 'File name contains illegal characters'));
+        exit();
+    }
+    $command = "/usr/bin/dcfldd if=/var/www/xwing.dev/fwdu-driveflasher-development/uploads/" . $fileName . " ";
+    foreach ($selectedDrives as $drive) {
+        $command .= "of=" . $drive . " ";
+    }
+    echo ("Starting flash operation with the following command:" . $command);
 }
 // if tab / mode is "format"
 else {

@@ -31,7 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // If everything is valid, proceed with file processing
   else {
     $new_file_path = "uploads/";
-
+    // Make filename lowercase
+    $filename = strtolower($filename);
     // Remove any character that is not a letter, a digit, an underscore, a dot or a hyphen from the filename
     $filename = preg_replace('/[^\w\._]+/', '', $file['name']);
 
@@ -75,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         // Move the uploaded file to the uploads directory
         move_uploaded_file($file['tmp_name'], $new_file_path);
-        echo "File uploaded successfully!";
+        echo $filename;
         http_response_code(200); // OK
         exit();
       }
