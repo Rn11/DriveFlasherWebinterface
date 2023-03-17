@@ -83,7 +83,7 @@ else {
                     break;
             }
         }
-        echo json_encode(array('success' => false, 'message' => "Command will be: " . $command)); 
+        echo json_encode(array('success' => true, 'message' => 'Command will be: ' . $command)); 
     }
 
     // TODO: process formatting with $selectedDrives and $selectedFileSystem

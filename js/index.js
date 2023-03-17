@@ -1,3 +1,22 @@
+// this function will display a sweetalert warning and is used before the user can start flashing / formatting
+function displayConfirmationDialogue() {
+  return Swal.fire({
+    title: 'Warning',
+    icon: 'warning',
+    text: 'Are you sure you want to proceed? All data on the selected drives will be erased',
+    showDenyButton: true,
+    showCancelButton: false,
+    denyButtonText: 'No',
+    confirmButtonText: 'Yes',
+    customClass: {
+      actions: 'warning-dialogue-actions',
+      cancelButton: 'order-1 right-gap',
+      confirmButton: 'order-2',
+      denyButton: 'order-3'
+    }
+  });
+}
+
 // this variable will store the sanizited filename of the upload. It's needed to pass the value to drive-util.php
 let uploadFilename;
 // file upload status handling
@@ -85,6 +104,31 @@ function updateSelectedFile(input) {
 }
 
 
+// for making a div blink
+$(".select-fs").change(function () {
+  // set animation for element
+  $(".blinkDiv").css("animation-play-state", "running");
+  // remove and re-add element so animation gets reset
+  const element = document.getElementsByClassName("table-flash-container")[0];
+  const newElement = element.cloneNode(true);
+  element.parentNode.replaceChild(newElement, element);
+
+  // enable table flash if not yet enabled
+  enableTableFlashDiv();
+  colorTableRows();
+  $(".tooltiptext").remove();
+  // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
+  // this way we'll make sure the flash / format drive button always has an event listener
+  $("#btnFlash").on('click', function () {
+    displayConfirmationDialogue().then(function (result) {
+      if (result.value) {
+        sendData();
+      }
+    });
+  });
+});
+
+
 // Tab section
 //make tabflash enabled by default
 document.getElementById("flash").style.display = "flex";
@@ -102,27 +146,6 @@ function openTabContent(evt, modeName) {
     $(".tooltiptext").text("Upload an image and select a drive first!");
   }
 
-
-  // for making a div blink
-  $(".select-fs").change(function () {
-    // set animation for element
-    $(".blinkDiv").css("animation-play-state", "running");
-    // remove and re-add element so animation gets reset
-    const element = document.getElementsByClassName("table-flash-container")[0];
-    const newElement = element.cloneNode(true);
-    element.parentNode.replaceChild(newElement, element);
-
-    // enable table flash if not yet enabled
-    enableTableFlashDiv();
-    colorTableRows();
-    $(".tooltiptext").remove();
-    // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
-    // this way we'll make sure the flash / format drive button always has an event listener
-    $("#btnFlash").on('click', function () {
-      sendData();
-    });
-  });
-
   // for switching tabs (modes)
   let i, tabcontent, tablinks;
   tabcontent = document.getElementsByClassName("tabcontent");
@@ -136,6 +159,7 @@ function openTabContent(evt, modeName) {
   document.getElementById(modeName).style.display = "flex";
   evt.currentTarget.className += " active";
 }
+
 
 // for colouring selected table rows green / resetting color back to normal via RGBA
 function colorTableRows() {
@@ -173,10 +197,14 @@ function blinkDiv(divName) {
   element.className += ' blinkDiv';
 }
 
-// send data to drive util
+// action button click listener that will display a warning and then send the data to drive-util
 $(document).ready(function () {
   $("#btnFlash").on('click', function () {
-    sendData();
+    displayConfirmationDialogue().then(function (result) {
+      if (result.value) {
+        sendData();
+      }
+    });
   });
 });
 
