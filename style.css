@@ -182,6 +182,7 @@ input[type="submit"] .progress {
 
 .progress-btn.active .progress {
     opacity: 1;
+    border-radius: 5px;
     animation: progress-anim 10s ease 0s;
 }
 

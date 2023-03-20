@@ -32,20 +32,38 @@ function uploadFile() {
       formData.append("file", file);
       let xhr = new XMLHttpRequest();
       xhr.open("POST", "upload.php", true);
+
+      $(".progress").css("opacity", 1);
+
+      // calculate progress of upload and update UI
+      xhr.upload.addEventListener("progress", ({ loaded, total }) => {
+        let fileLoaded = Math.floor((loaded / total) * 100);
+        let fileTotal = Math.floor(total / 1000);
+        let fileSize;
+        fileTotal < 1024
+          ? (fileSize = fileTotal + " KB")
+          : (fileSize = (loaded / (1024 * 1024)).toFixed(2) + " MB");
+          $("#upload-status-headline").text(`File upload progress: ${fileLoaded}%`);
+          // update width of underlying progress-bar (upload button)
+          $(".progress").css("width", fileLoaded + "%"); 
+      });
+
       xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
             uploadFilename = xhr.responseText;
+            //temporarily removed due to dynamic progress calculation
             // Trigger upload button upload progress animation
-            const progressBtn = $(".progress-btn");
+            /*const progressBtn = $(".progress-btn");
             if (!progressBtn.hasClass("active")) {
               progressBtn.addClass("active");
               setTimeout(function () {
                 progressBtn.removeClass("active");
               }, 10000);
-            }
+            }*/
             console.log("Successful file upload!");
-
+            // change file upload status description
+            $("#upload-status-headline").text("File successfully uploaded!");
             // for enabling the drive selection table
             // TODO: filter for system drives (mmcblk), leave them disabled
             enableTableFlashDiv();

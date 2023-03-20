@@ -33,7 +33,7 @@ if ($activeTab === 'tab-flash') {
     // build command string with parameters
     $command = "/usr/bin/dcfldd if=/var/www/xwing.dev/fwdu-driveflasher-development/uploads/" . $fileName . " ";
     foreach ($selectedDrives as $drive) {
-        $command .= "of=" . $drive . " ";
+        $command .= "of=" . $drive . "1";
     }
     $command .= " && sync";
 

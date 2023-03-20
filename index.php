@@ -23,7 +23,7 @@
       <div id="flash" class="tabcontent">
         <div class="file-upload-container">
           <h3 class="sub-headline">Flash a drive</h3>
-          <h4 class="headline">Select a file to upload</h4>
+          <h4 id="upload-status-headline" class="headline">Select a file to upload</h4>
           <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
             <div class="form-group">
               <label for="file" id="selected-file-name">No file selected</label>
