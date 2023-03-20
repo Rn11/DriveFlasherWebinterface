@@ -43,9 +43,9 @@ function uploadFile() {
         fileTotal < 1024
           ? (fileSize = fileTotal + " KB")
           : (fileSize = (loaded / (1024 * 1024)).toFixed(2) + " MB");
-          $("#upload-status-headline").text(`File upload progress: ${fileLoaded}%`);
-          // update width of underlying progress-bar (upload button)
-          $(".progress").css("width", fileLoaded + "%"); 
+        $("#upload-status-headline").text(`File upload progress: ${fileLoaded}%`);
+        // update width of underlying progress-bar (upload button)
+        $(".progress").css("width", fileLoaded + "%");
       });
 
       xhr.onreadystatechange = function () {
@@ -68,7 +68,8 @@ function uploadFile() {
             // TODO: filter for system drives (mmcblk), leave them disabled
             enableTableFlashDiv();
             // remove tooltip
-            $(".tooltiptext").remove();
+            //$(".tooltiptext").remove();
+            $(".tooltip").removeClass('tooltip-hover');
 
           } else if (xhr.status === 400) {
             console.log("File upload failed, status code: " + xhr.status);
@@ -134,7 +135,8 @@ $(".select-fs").change(function () {
   // enable table flash if not yet enabled
   enableTableFlashDiv();
   colorTableRows();
-  $(".tooltiptext").remove();
+  //$(".tooltiptext").remove();
+  $(".tooltip").removeClass('tooltip-hover');
   // we need to add this event listener again, because when resetting the animation we remove the element, and thus the event listener for the flash button
   // this way we'll make sure the flash / format drive button always has an event listener
   $("#btnFlash").on('click', function () {

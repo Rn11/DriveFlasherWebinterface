@@ -501,7 +501,7 @@ button:disabled {
     border-color: transparent transparent rgb(99, 99, 99) transparent;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip-hover:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
 }

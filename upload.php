@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   // Check if there was an error during file upload
   else if ($file['error'] !== UPLOAD_ERR_OK) {
-    echo "File upload failed.";
+    echo "File upload failed. Error: " . $file['error'];
     http_response_code(500); // Internal Server Error status code
     exit();
   }
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   else {
     $new_file_path = "uploads/";
     // Make filename lowercase
-    $filename = strtolower($filename);
+    $filename = strtolower($file['name']);
     // Remove any character that is not a letter, a digit, an underscore, a dot or a hyphen from the filename
     $filename = preg_replace('/[^\w\._]+/', '', $file['name']);
 
