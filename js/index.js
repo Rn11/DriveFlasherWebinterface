@@ -52,15 +52,6 @@ function uploadFile() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
           if (xhr.status === 200) {
             uploadFilename = xhr.responseText;
-            //temporarily removed due to dynamic progress calculation
-            // Trigger upload button upload progress animation
-            /*const progressBtn = $(".progress-btn");
-            if (!progressBtn.hasClass("active")) {
-              progressBtn.addClass("active");
-              setTimeout(function () {
-                progressBtn.removeClass("active");
-              }, 10000);
-            }*/
             console.log("Successful file upload!");
             // change file upload status description
             $("#upload-status-headline").text("File successfully uploaded!");
@@ -84,7 +75,7 @@ function uploadFile() {
             document.getElementById("selected-file-name").innerHTML = "File size too large. Maximum file size is 20 GB";
           }
           else if (xhr.status === 422) {
-            console.log("File upload failed, status code: " + xhr.status);
+            console.log("File upload failed, status code: " + xhr.status + " Message: " + xhr.response + " " + xhr.responseText);
             document.getElementById("selected-file-name").innerHTML = "Invalid file type<br> Only "
               + allowed_extensions.join(", ") + " files are allowed";
           }
