@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', true);
+
 // ensure that all expected values are present and not empty
 if (
     !isset($_POST['activeTab']) || empty($_POST['activeTab']) ||
@@ -11,7 +13,23 @@ if (
 // retrieve data from POST request
 $activeTab = $_POST['activeTab'];
 $selectedDrives = $_POST['selectedDrives'];
-
+$sanitizedDrives = [];
+if (isset($_POST['fileName'])) {
+    $fileName = $_POST['fileName'];
+}
+// sanitize data
+$fileName = escapeshellarg($fileName);
+$fileName = str_replace("'", "", $fileName);
+if (!preg_match('/^[a-zA-Z0-9_.-]+$/', $fileName)) {
+    die("Invalid file name"); // Abort if the file name contains unexpected characters
+  }
+foreach ($selectedDrives as $drive ){
+    $drive = str_replace("'", "", escapeshellarg($drive));
+    if (!preg_match('/^[a-zA-Z0-9\/_.-]+$/', $drive)) {
+        die("Invalid file name"); // Abort if the file name contains unexpected characters
+      }
+    array_push($sanitizedDrives, $drive);
+}
 
 // check active tab and get related data
 // if tab / mode is "flash"
@@ -20,14 +38,14 @@ if ($activeTab === 'tab-flash') {
         echo json_encode(array('success' => false, 'message' => 'Error: missing or empty parameters'));
         exit();
     }
-    $fileName = $_POST['fileName'];
+    //$fileName = $_POST['fileName'];
     // check if file name for path traversal or other unwanted, dangerous content
     // get the absolute path of the file
     $filepath = realpath('/var/www/xwing.dev/fwdu-driveflasher-development/uploads/' . $fileName);
 
     // check if the resulting path is under the intended directory
     if (strpos($filepath, '/var/www/xwing.dev/fwdu-driveflasher-development/uploads') === false) {
-        echo json_encode(array('success' => false, 'message' => 'File name contains illegal characters'));
+        //echo json_encode(array('success' => false, 'message' => 'File name contains illegal characters'));
         exit();
     }
     // build command string with parameters
@@ -39,6 +57,7 @@ if ($activeTab === 'tab-flash') {
 
     // send response back to JS
     $response = array('success' => true, 'message' => 'Starting flash operation with the following command:' . $command);
+    unlink("/var/www/xwing.dev/fwdu-driveflasher-development/uploads/" . $fileName);
     echo json_encode($response);
 }
 // if tab / mode is "format"
