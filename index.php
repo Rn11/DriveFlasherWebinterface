@@ -10,6 +10,14 @@
         body.swal2-height-auto {
             height: 100vh !important;
         }
+
+        .swal2-styled.swal2-confirm {
+            background-color: #77a200;
+        }
+
+        .swal2-confirm:focus {
+            box-shadow: 0 0 0;
+        }
     </style>
 </head>
 
