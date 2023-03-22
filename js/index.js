@@ -19,7 +19,8 @@ function displayConfirmationDialogue() {
 
 // this variable will store the sanizited filename of the upload. It's needed to pass the value to drive-util.php
 let uploadFilename;
-
+// call function to bind listeners for table row coloring upon checkbox state changes
+colorTableRows();
 // file upload status handling
 function uploadFile() {
     event.preventDefault();
@@ -202,8 +203,9 @@ function blinkDiv(divName) {
     //$('#' + divName).addClass('blinkDiv');
     if (element.classList.length > 1) {
         console.log("Contains!");
-        element.className = divName;
+        element.className = divName + " gradient-background ";
         //element.classList.remove("blinkDiv");
+        $(".table-flash-container").css("animation" , "gradient-animation 27s cubic-bezier(.21, .26, .65, .91) infinite, blinkingDiv 0.35s 2")
     }
     element.className += ' blinkDiv';
 }

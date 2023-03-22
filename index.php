@@ -29,7 +29,7 @@
             <button class="tablinks" id="tab-format" onclick="openTabContent(this, 'format')">Format drive</button>
         </div>
         <div id="flash" class="tabcontent">
-            <div class="file-upload-container">
+            <div class="file-upload-container gradient-background">
                 <h3 class="sub-headline">Flash a drive</h3>
                 <h4 id="upload-status-headline" class="headline">Select a file to upload</h4>
                 <form id="file-upload" method=POST enctype=multipart/form-data onsubmit="uploadFile()">
@@ -50,7 +50,7 @@
     </div>
 
     <div id="format" class="tabcontent">
-        <div class="file-upload-container fsSelectDiv">
+        <div class="file-upload-container fsSelectDiv gradient-background">
             <h4 class="headline">Format device</h4>
             <span>Please select a file system</span>
             <select class="select-fs" autocomplete="off"
@@ -70,7 +70,7 @@
 </div>
 
 
-<div class="table-flash-container">
+<div class="table-flash-container gradient-background">
     <h4 class="headline" id="headline-table-selection">Select the drives to flash</h4>
     <table class="responsive" disabled>
         <tr>
