@@ -166,7 +166,7 @@ function openTabContent(evt, modeName) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
     document.getElementById(modeName).style.display = "flex";
-    evt.currentTarget.className += " active";
+    event.currentTarget.className += " active";
 }
 
 
@@ -174,8 +174,9 @@ function openTabContent(evt, modeName) {
 function colorTableRows() {
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
     checkboxes.forEach(checkbox => {
-        checkbox.addEventListener("click", function () {
-            const parentRow = this.parentNode.parentNode;
+        checkbox.addEventListener("change", function () {
+            const parentRow = this.parentNode.parentNode.parentNode;
+            console.log(parentRow)
             const backgroundColor = window.getComputedStyle(parentRow).getPropertyValue("background-color");
             console.log("current backgroundColor: " + backgroundColor);
             if (backgroundColor) {

@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-function isDiskImage($file)
+function isDiskImage($file): bool
 {
     $finfo = finfo_open(FILEINFO_MIME_TYPE);
     $mime_type = finfo_file($finfo, $file['tmp_name']);
@@ -110,7 +110,7 @@ function isDiskImage($file)
     }
 }
 
-function sanitizeFilename($file)
+function sanitizeFilename($file): string
 {
     // Make filename lowercase
     $fileinfo = pathinfo($file['name']);
@@ -121,7 +121,6 @@ function sanitizeFilename($file)
     // Remove any character that is not a letter, a digit, an underscore, a dot or a hyphen from the filename
     $name = preg_replace('/[^\w\._]+/', '', $name);
 
-    // Replace spaces with underscores in the filename
-    $name = str_replace(' ', '_', $name) . '.' . $ext;
-    return $name;
+    // Replace spaces with underscores in the filename and return
+    return str_replace(' ', '_', $name) . '.' . $ext;
 }

@@ -31,7 +31,7 @@
                                accept=".iso,.img,.zip,.usb,.bz2,.bzip2,.gz,.vhd,.gz">
                         <label for="file">Choose a file</label>
 
-                        <div type="submit" form="file-upload" class="progress-btn" data-progress-style="fill-back">
+                        <div class="progress-btn" data-progress-style="fill-back">
                             <div class="btn">Upload</div>
                             <div class="progress"></div>
                         </div>
@@ -71,6 +71,7 @@
             <th>Flash drive?</th>
         </tr>
         <?php
+        $chkID = 0;
         exec("lsblk -d --output NAME,SIZE", $output);
         foreach ($output as $line) {
             if (preg_match('/^(.*)\s+(\d+[G|M])$/', $line, $matches)) {
@@ -79,8 +80,15 @@
                 if (preg_match("/[Mm]/", $matches[2])) {
                     $size = $size / 1024;
                 }
-                echo "<tr><td>/dev/$drive</td><td>$size</td><td><input class='drive-checkbox' type='checkbox' autocomplete='off' disabled></td></tr>\n";
+                echo "<tr class='tr-drive'>
+                        <td>/dev/$drive</td>
+                        <td>$size</td>
+                        <td><li class='tg-list-item'><input class='tgl tgl-switch drive-checkbox' id='cb" . $chkID . "' type='checkbox' autocomplete='off'/>
+                        <label class='tgl-btn' for='cb" . $chkID . "'></label>
+                        </li></td>
+                        </tr>\n";
             }
+            $chkID++;
         }
         ?>
     </table>
@@ -89,9 +97,6 @@
         <span class="tooltiptext">Upload an image and select a drive first!</span>
     </div>
 </div>
-
-</div>
-
 
 <script src="./js/libs/jquery-2.1.3.min.js"></script>
 <script src="./js/libs/sweetalert2.js"></script>
