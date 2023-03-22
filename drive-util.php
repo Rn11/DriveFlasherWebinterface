@@ -70,19 +70,21 @@ else {
             // save selected fs in variable
             $selectedFileSystem = $_POST['selectedFileSystem'];
             $comamnd = "";
-            //first, delete all possible partitions and then create a new partition and make a fs on that partition
             foreach ($selectedDrives as $drive) {
+                //first, delete all possible partitions and then create a new partition and make a fs on that partition
                 // in case of undeletable partitions (that cannot be deleted by fdisk) destroy the partition table by overwriting with zero
+                $command .= "wipefs -a --force " . $drive . "1 && wipefs -a --force " . $drive . " && ";
                 $command .= "dd count=32 bs=2048 if=/dev/zero of=" . $drive . " && ";
+                $command .= "echo -e 'n\np\n\n\n\nw\n' | fdisk " . $drive . " && ";
                 // create new partition
                 $command .= match ((string)$selectedFileSystem) {
-                    'FAT32' => "/usr/sbin/mkfs.fat -F 32 " . $drive,
-                    'exFAT' => "/usr/sbin/mkfs.exfat " . $drive,
-                    'NTFS' => "/usr/sbin/mkfs.ntfs " . $drive,
-                    'ext4' => "/usr/sbin/mkfs.ext4 " . $drive,
-                    'btrfs' => "/usr/sbin/mkfs.btrfs -f " . $drive,
-                    'ReiserFS' => "/usr/bin/yes | /usr/sbin/mkfs.reiserfs " . $drive,
-                    'F2FS' => "/usr/sbin/mkfs.f2fs -f " . $drive,
+                    'FAT32' => "/usr/sbin/mkfs.fat -F 32 " . $drive . "1",
+                    'exFAT' => "/usr/sbin/mkfs.exfat " . $drive . "1",
+                    'NTFS' => "/usr/sbin/mkfs.ntfs " . $drive . "1",
+                    'ext4' => "/usr/sbin/mkfs.ext4 " . $drive . "1",
+                    'btrfs' => "/usr/sbin/mkfs.btrfs -f " . $drive . "1",
+                    'ReiserFS' => "/usr/bin/yes | /usr/sbin/mkfs.reiserfs " . $drive . "1",
+                    'F2FS' => "/usr/sbin/mkfs.f2fs -f " . $drive . "1",
                     default => "Filesystem does not match!",
                 };
                 $command .= " && ";
