@@ -433,13 +433,14 @@ button:disabled {
     transition: all 0.5s ease;
     align-self: center;
     border-radius: 10px;
+    word-wrap: anywhere;
 }
 
 #selected-file-name:hover {
     border-color: #af73af;
     color: #6e206e;
     transform: scale(1.3);
-    white-space: nowrap;
+    word-wrap: anywhere;
 }
 
 /* for dragover effect with file */
