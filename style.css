@@ -800,7 +800,7 @@ body.swal2-height-auto {
 
 
 .gradient-background {
-    background: linear-gradient(180deg, #89898b75, #3f3d498f, #39393a7d);
+    background: linear-gradient(180deg, #c1c1c275, #3f3d498f, #39393a7d);
     background-size: 125% 185%;
     animation: gradient-animation 27s cubic-bezier(.21, .26, .65, .91) infinite;
 }
