@@ -331,3 +331,5 @@ $(".progress-btn").on('click', function (ev) {
     ev.preventDefault();
     $(this).submit();
 })
+
+//TODO: Make table selection div blink after successful file upload!
